@@ -14,30 +14,29 @@ datasource db {
 }
 
 model Survey {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   nicheId      String
   stars        Int
   email        String
-  nicheAnswers Json
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  nicheAnswers Json?
+  created      DateTime  @default(now())
+  updated      DateTime  @updatedAt
+  deleted      DateTime?
 }
 
 model Niche {
-  id      String   @id @default(uuid())
+  id      String    @id @default(uuid())
   key     String
   name    String
-  text    String
-  created DateTime @default(now())
+  created DateTime  @default(now())
   deleted DateTime?
 }
 
 model NicheQuestion {
-  id      String   @id @default(uuid())
+  id      String    @id @default(uuid())
   key     String
-  text    String
   label   String
   niches  String[]
-  created DateTime @default(now())
+  created DateTime  @default(now())
   deleted DateTime?
 }
