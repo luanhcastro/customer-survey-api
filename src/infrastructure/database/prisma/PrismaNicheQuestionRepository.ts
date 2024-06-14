@@ -11,6 +11,16 @@ export class PrismaNicheQuestionRepository implements NicheQuestionRepository {
     });
   }
 
+  async findManyByNiche(nicheId: string): Promise<NicheQuestion[] | null> {
+    return await prisma.nicheQuestion.findMany({
+      where: {
+        niches: {
+          has: nicheId,
+        },
+      },
+    });
+  }
+
   async create(nicheQuestion: NicheQuestion): Promise<void> {
     await prisma.nicheQuestion.create({
       data: nicheQuestion,

@@ -11,6 +11,10 @@ export class PrismaNicheRepository implements NicheRepository {
     });
   }
 
+  async findAll(): Promise<Niche[] | null> {
+    return await prisma.niche.findMany({});
+  }
+
   async create(niche: Niche): Promise<void> {
     await prisma.niche.create({
       data: niche,
