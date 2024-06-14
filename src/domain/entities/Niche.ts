@@ -1,8 +1,8 @@
 export class Niche {
-    id!: string;
+    id?: string;
     key!: string;
     name!: string;
-    created!: Date;
+    created?: Date;
     deleted?: Date | null;
   }
   
