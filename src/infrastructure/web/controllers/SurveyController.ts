@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
 import { CreateSurvey } from '../../../application/use-cases/CreateSurvey';
 import { UpdateSurvey } from '../../../application/use-cases/UpdateSurvey';
-import { AnswerSurvey } from '../../../application/use-cases/AnswerSurvey';
 import { ListSurveyAnswers } from '../../../application/use-cases/ListSurveyAnswers';
 
 export class SurveyController {
   constructor(
     private createSurvey: CreateSurvey,
     private updateSurvey: UpdateSurvey,
-    private answerSurvey: AnswerSurvey,
     private listSurveyAnswers: ListSurveyAnswers
   ) {}
 
@@ -28,18 +26,6 @@ export class SurveyController {
     try {
       await this.updateSurvey.execute({ id: req.params.id, ...req.body });
       return res.status(200).send();
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(400).send({ error: error.message });
-      }
-      return res.status(400).send({ error: 'An unexpected error occurred' });
-    }
-  }
-
-  async answer(req: Request, res: Response): Promise<Response> {
-    try {
-      await this.answerSurvey.execute(req.body);
-      return res.status(201).send();
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).send({ error: error.message });
