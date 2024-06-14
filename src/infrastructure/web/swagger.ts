@@ -254,53 +254,6 @@ const swaggerDocument: OpenAPIV3.Document = {
         },
       },
     },
-    '/niche-questions/{id}/niches': {
-      put: {
-        summary: 'Update the niches associated with a niche question',
-        tags: ['Niche Questions'],
-        parameters: [
-          {
-            in: 'path',
-            name: 'id',
-            schema: {
-              type: 'string',
-            },
-            required: true,
-            description: 'The niche question ID',
-          },
-        ],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties: {
-                  niches: {
-                    type: 'array',
-                    items: {
-                      type: 'string',
-                    },
-                  },
-                },
-                required: ['niches'],
-              },
-            },
-          },
-        },
-        responses: {
-          200: {
-            description: 'Niche question updated successfully',
-          },
-          400: {
-            description: 'Invalid input',
-          },
-          404: {
-            description: 'Niche question not found',
-          },
-        },
-      },
-    },
     '/niche-questions/{nicheId}': {
       get: {
         summary: 'List questions by niche',
