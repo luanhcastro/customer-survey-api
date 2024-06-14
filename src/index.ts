@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './infrastructure/web/swagger';
+import nicheRouter from './infrastructure/web/routes/NicheRoutes';
 import surveyRouter from './infrastructure/web/routes/SurveyRoutes';
 import nicheQuestionRouter from './infrastructure/web/routes/NicheQuestionRoutes';
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.use('/niches', nicheRouter);
 app.use('/surveys', surveyRouter);
 app.use('/niche-questions', nicheQuestionRouter);
 
