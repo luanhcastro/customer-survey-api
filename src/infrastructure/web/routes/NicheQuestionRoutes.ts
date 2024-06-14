@@ -8,7 +8,7 @@ import { FindManyByNiche } from '../../../application/use-cases/FindManyNicheQue
 const nicheQuestionRepository = new PrismaNicheQuestionRepository();
 const nicheRepository = new PrismaNicheRepository();
 const nicheQuestionController = new NicheQuestionController(
-  new CreateNicheQuestion(nicheQuestionRepository),
+  new CreateNicheQuestion(nicheQuestionRepository, nicheRepository),
   new FindManyByNiche(nicheQuestionRepository, nicheRepository) 
 );
 
