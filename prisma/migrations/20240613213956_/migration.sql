@@ -34,3 +34,9 @@ CREATE TABLE "NicheQuestion" (
 
     CONSTRAINT "NicheQuestion_pkey" PRIMARY KEY ("id")
 );
+
+-- Insert Initial Data into Niche
+INSERT INTO "Niche" ("id", "key", "name", "created", "deleted") VALUES
+    (gen_random_uuid(), 'GEEKS', 'Geeks', CURRENT_TIMESTAMP, NULL),
+    (gen_random_uuid(), 'MINIMALS', 'Minimals', CURRENT_TIMESTAMP, NULL),
+    (gen_random_uuid(), 'ATLETES', 'Atletes', CURRENT_TIMESTAMP, NULL);
