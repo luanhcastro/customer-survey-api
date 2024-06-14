@@ -14,6 +14,10 @@ const swaggerDocument: OpenAPIV3.Document = {
   ],
   tags: [
     {
+      name: 'Niches',
+      description: 'Customer Niches Config',
+    },
+    {
       name: 'Surveys',
       description: 'Customer Satisfaction Surveys',
     },
@@ -23,6 +27,61 @@ const swaggerDocument: OpenAPIV3.Document = {
     },
   ],
   paths: {
+    '/niches': {
+      get: {
+        summary: 'List all niches',
+        tags: ['Niches'],
+        responses: {
+          200: {
+            description: 'List of niches',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Niche',
+                  },
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Invalid input',
+          },
+        },
+      },
+      post: {
+        summary: 'Create a new niche',
+        tags: ['Niches'],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  key: {
+                    type: 'string',
+                  },
+                  name: {
+                    type: 'string',
+                  },
+                },
+                required: ['key', 'name']
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Niche created successfully',
+          },
+          400: {
+            description: 'Invalid input',
+          },
+        },
+      },
+    },
     '/surveys': {
       post: {
         summary: 'Create a new survey',
@@ -111,49 +170,6 @@ const swaggerDocument: OpenAPIV3.Document = {
         },
       },
     },
-    '/surveys/{id}/answer': {
-      post: {
-        summary: 'Answer an existing survey',
-        tags: ['Surveys'],
-        parameters: [
-          {
-            in: 'path',
-            name: 'id',
-            schema: {
-              type: 'string',
-            },
-            required: true,
-            description: 'The survey ID',
-          },
-        ],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties: {
-                  answers: {
-                    type: 'object',
-                  },
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          201: {
-            description: 'Survey answered successfully',
-          },
-          400: {
-            description: 'Invalid input',
-          },
-          404: {
-            description: 'Survey not found',
-          },
-        },
-      },
-    },
     '/surveys/answers': {
       get: {
         summary: 'List survey answers by niche',
@@ -213,9 +229,6 @@ const swaggerDocument: OpenAPIV3.Document = {
                   key: {
                     type: 'string',
                   },
-                  text: {
-                    type: 'string',
-                  },
                   label: {
                     type: 'string',
                   },
@@ -226,7 +239,7 @@ const swaggerDocument: OpenAPIV3.Document = {
                     },
                   },
                 },
-                required: ['key', 'text', 'label', 'niches'],
+                required: ['key', 'label', 'niches'],
               },
             },
           },
@@ -288,6 +301,41 @@ const swaggerDocument: OpenAPIV3.Document = {
         },
       },
     },
+    '/niche-questions/{nicheId}': {
+      get: {
+        summary: 'List questions by niche',
+        tags: ['Niche Questions'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'nicheId',
+            schema: {
+              type: 'string',
+            },
+            required: true,
+            description: 'The niche ID',
+          },
+        ],
+        responses: {
+          200: {
+            description: 'List of niche questions',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/NicheQuestion',
+                  },
+                },
+              },
+            },
+          },
+          400: {
+            description: 'Invalid input',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -328,9 +376,6 @@ const swaggerDocument: OpenAPIV3.Document = {
           key: {
             type: 'string',
           },
-          text: {
-            type: 'string',
-          },
           label: {
             type: 'string',
           },
@@ -339,6 +384,21 @@ const swaggerDocument: OpenAPIV3.Document = {
             items: {
               type: 'string',
             },
+          },
+          created: {
+            type: 'string',
+            format: 'date-time',
+          },
+        },
+      },
+      Niche: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
           },
           created: {
             type: 'string',
