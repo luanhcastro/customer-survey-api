@@ -1,8 +1,8 @@
 export class NicheQuestion {
-    id!: string;
+    id?: string;
     key!: string;
     label!: string;
     niches!: string[];
-    created!: Date;
+    created?: Date;
     deleted?: Date | null;
   }
