@@ -98,6 +98,7 @@ const swaggerDocument: OpenAPIV3.Document = {
                   },
                   stars: {
                     type: 'integer',
+                    example: 5,
                   },
                   email: {
                     type: 'string',
@@ -120,57 +121,6 @@ const swaggerDocument: OpenAPIV3.Document = {
           },
         },
       },
-    },
-    '/surveys/{id}': {
-      put: {
-        summary: 'Update an existing survey',
-        tags: ['Surveys'],
-        parameters: [
-          {
-            in: 'path',
-            name: 'id',
-            schema: {
-              type: 'string',
-            },
-            required: true,
-            description: 'The survey ID',
-          },
-        ],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties: {
-                  stars: {
-                    type: 'integer',
-                  },
-                  email: {
-                    type: 'string',
-                  },
-                  nicheAnswers: {
-                    type: 'object',
-                  },
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          200: {
-            description: 'Survey updated successfully',
-          },
-          400: {
-            description: 'Invalid input',
-          },
-          404: {
-            description: 'Survey not found',
-          },
-        },
-      },
-    },
-    '/surveys/answers': {
       get: {
         summary: 'List survey answers by niche',
         tags: ['Surveys'],
@@ -254,6 +204,56 @@ const swaggerDocument: OpenAPIV3.Document = {
         },
       },
     },
+    '/surveys/{id}': {
+      put: {
+        summary: 'Update an existing survey',
+        tags: ['Surveys'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            schema: {
+              type: 'string',
+            },
+            required: true,
+            description: 'The survey ID',
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  stars: {
+                    type: 'integer',
+                    example: 5,
+                  },
+                  email: {
+                    type: 'string',
+                  },
+                  nicheAnswers: {
+                    type: 'object',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Survey updated successfully',
+          },
+          400: {
+            description: 'Invalid input',
+          },
+          404: {
+            description: 'Survey not found',
+          },
+        },
+      },
+    },
     '/niche-questions/{nicheId}': {
       get: {
         summary: 'List questions by niche',
@@ -303,6 +303,7 @@ const swaggerDocument: OpenAPIV3.Document = {
           },
           stars: {
             type: 'integer',
+            example: 5,
           },
           email: {
             type: 'string',
