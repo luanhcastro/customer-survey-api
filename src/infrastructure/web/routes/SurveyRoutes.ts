@@ -5,7 +5,6 @@ import { PrismaNicheRepository } from '../../database/prisma/PrismaNicheReposito
 import { PrismaNicheQuestionRepository } from '../../database/prisma/PrismaNicheQuestionRepository';
 import { CreateSurvey } from '../../../application/use-cases/CreateSurvey';
 import { UpdateSurvey } from '../../../application/use-cases/UpdateSurvey';
-import { AnswerSurvey } from '../../../application/use-cases/AnswerSurvey';
 import { ListSurveyAnswers } from '../../../application/use-cases/ListSurveyAnswers';
 
 const surveyRepository = new PrismaSurveyRepository();
@@ -15,7 +14,6 @@ const nicheQuestionRepository = new PrismaNicheQuestionRepository();
 const surveyController = new SurveyController(
   new CreateSurvey(surveyRepository, nicheRepository, nicheQuestionRepository),
   new UpdateSurvey(surveyRepository),
-  new AnswerSurvey(surveyRepository),
   new ListSurveyAnswers(surveyRepository)
 );
 
@@ -96,38 +94,6 @@ router.post('/', (req, res) => surveyController.create(req, res));
  *         description: Survey not found
  */
 router.put('/:id', (req, res) => surveyController.update(req, res));
-
-/**
- * @swagger
- * /surveys/{id}/answer:
- *   post:
- *     summary: Answer an existing survey
- *     tags: [Surveys]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The survey ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               answers:
- *                 type: object
- *     responses:
- *       201:
- *         description: Survey answered successfully
- *       400:
- *         description: Invalid input
- *       404:
- *         description: Survey not found
- */
-router.post('/:id/answer', (req, res) => surveyController.answer(req, res));
 
 /**
  * @swagger
