@@ -13,11 +13,9 @@ export class CreateNicheQuestion {
     const { key, label, niches } = request;
 
     const nicheQuestion = {
-      id: '',
       key,
       label,
       niches,
-      created: new Date(),
       deleted: null,
     };
 
