@@ -1,16 +1,19 @@
-version: '3.8'
-
+version: "3"
 services:
-  postgres:
-    image: postgres:latest
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: root
+      POSTGRES_DB: customer-survey
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: customer_survey
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
-volumes:
-  postgres_data:
+  app:
+    build: .
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "${DATABASE_URL}"
