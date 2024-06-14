@@ -20,19 +20,20 @@ export class CreateSurvey {
   async execute(request: CreateSurveyRequest) {
     const { nicheId, stars, email, nicheAnswers } = request;
 
-    const niche = await this.nicheRepository.findById(nicheId);
-    if (!niche) {
-      throw new Error('Niche not found');
-    }
+    if (stars < 1 || stars > 5) throw new Error('Stars must be from 1 to 5')
+
+    const nicheQuestions = await this.nicheQuestionRepository.findManyByNiche(nicheId);
+
+    Object.keys(nicheAnswers).forEach(nicheAnswerId => {
+      if (!nicheQuestions?.some(nicheQuestion => nicheQuestion.id === nicheAnswerId))
+        throw new Error(`Question ${nicheAnswerId} doesn't exists`)
+      })
 
     const survey = {
-      id: '',
       nicheId,
       stars,
       email,
       nicheAnswers,
-      created: new Date(),
-      updated: new Date(),
     };
 
     await this.surveyRepository.create(survey);
